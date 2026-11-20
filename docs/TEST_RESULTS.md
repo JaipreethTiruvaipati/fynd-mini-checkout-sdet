@@ -1,89 +1,119 @@
-# Test Results — Mini Checkout
+# Test Results: Mini Checkout
 
-**Environment:** macOS (Darwin 25), Node v24.14.1, Playwright 1.65.1 (Chromium headless shell), Google Chrome for manual tests. App served by `node server.js` at `http://localhost:4173`.
-**Date:** 20 Nov 2026.
+**Environment:** macOS 26 (Apple Silicon), Go 1.26.1, playwright-go v0.6401.0 (Chromium, Firefox 159, WebKit 27.2, Pixel 7 profile), Google Chrome for manual tests.
+**Build:** Go version (v2). Defects DEF-01 to DEF-03 were found on the earlier builds and are fixed in this one.
+**Date:** 21 Nov 2026.
 
 ## 1. Summary
 
 | | Result |
 |---|---|
-| Automated tests | **12 / 12 passed** (0 retries) — raw output in [`test-run-output.txt`](test-run-output.txt) |
-| Flakiness check | `--repeat-each=10` → 110/110 passed (before EC-08 was added); `--repeat-each=5` → 60/60 passed (after) |
+| Unit tests (`go test -race`) | **28 / 28 passed** |
+| Browser tests (15 scenarios × 4 browser profiles) | **60 / 60 passed**, retries off |
+| HTML report | [`report/index.html`](report/index.html), generated from `go test -json` by `cmd/testreport` |
 | Manual tests | MT-01 **Pass**, MT-02 **Pass** |
-| Defects found | **1 (DEF-01, Major)**, found during exploratory testing. **Fixed** and covered by regression test EC-08 |
+| Defects found | **3**: DEF-01 Major, DEF-02 Major, DEF-03 Minor. **All fixed**, each with a regression test |
+| Flaky tests | **1 open**: FLAKE-01 (Firefox only, 2 failures in 39 Firefox suite runs) |
 
-## 2. Automated results
+## 2. Browser test results
 
-```
-✓ TC-01: a successful checkout shows exactly one confirmation with a reference
-✓ TC-02: a blank name blocks checkout, shows a clear message and keeps the cart
-✓ TC-02: a whitespace-only name blocks checkout, shows a clear message and keeps the cart
-✓ TC-03: changing quantity updates line totals and the exact order total
-✓ EC-01: an empty cart blocks checkout and keeps the entered name
-✓ EC-02: an empty cart and blank name show both messages
-✓ EC-03: a rapid double-click on Place order creates one order
-✓ EC-04: two submits fired in the same tick still create one order
-✓ EC-05: pressing Enter repeatedly in the name field creates one order
-✓ EC-06: invalid quantities are rejected and the last valid quantity is kept
-✓ EC-07: "Start a new order" returns to a clean state
-✓ EC-08 (DEF-01 regression): an invalid quantity typed just before Place order blocks checkout
-12 passed
-```
+| Scenario | Chromium | Firefox | WebKit | Mobile |
+|---|:-:|:-:|:-:|:-:|
+| TC-01 Successful checkout → one confirmation | ✔ | ✔ | ✔ | ✔ |
+| TC-02 Missing name blocks checkout (blank) | ✔ | ✔ | ✔ | ✔ |
+| TC-02 Missing name blocks checkout (whitespace) | ✔ | ✔ | ✔ | ✔ |
+| TC-03 Quantity change → exact total | ✔ | ✔ | ✔ | ✔ |
+| EC-01 Empty cart blocked, name kept | ✔ | ✔ | ✔ | ✔ |
+| EC-02 Empty cart + blank name → both messages | ✔ | ✔ | ✔ | ✔ |
+| EC-03 Double-click → 1 request, 1 order | ✔ | ✔ | ✔ | ✔ |
+| EC-04 3 submits in one tick → 1 request | ✔ | ✔ | ✔ | ✔ |
+| EC-05 Enter ×3 → 1 order | ✔ | ✔ | ✔ | ✔ |
+| EC-06 Lost response + retry → still 1 order | ✔ | ✔ | ✔ | ✔ |
+| EC-07 Invalid quantities rejected | ✔ | ✔ | ✔ | ✔ |
+| EC-08 Type qty, click immediately (valid) | ✔ | ✔ | ✔ | ✔ |
+| EC-08 Type qty, click immediately (invalid) | ✔ | ✔ | ✔ | ✔ |
+| EC-09 Start a new order resets | ✔ | ✔ | ✔ | ✔ |
+| EC-10 Cart fits the screen | ✔ | ✔ | ✔ | ✔ |
 
-Reproduce with `npm test`. Open the HTML report with `npm run report`.
+Reproduce: `go test -tags e2e ./e2e -v`. Single engine: `BROWSERS=webkit go test -tags e2e ./e2e -v`.
 
-## 3. Manual test results
+## 3. Manual tests (Google Chrome, Go build)
 
-### MT-01 — Empty cart
-
+### MT-01: Empty cart
 | | |
 |---|---|
-| Steps | 1. Open `http://localhost:4173` (fresh load). 2. Leave the cart empty. 3. Type `Asha Verma` in Full name. 4. Click **Place order**. |
-| Expected | Checkout blocked; clear message; name kept; no confirmation. |
-| Actual | Message *"Your cart is empty. Add at least one item before placing your order."* shown under the name field. The name `Asha Verma` was still there. No confirmation appeared. Adding an item then cleared the message. |
-| Result | **Pass** |
-| Evidence | [`evidence/MT-01-empty-cart-blocked.jpg`](evidence/MT-01-empty-cart-blocked.jpg) |
+| Steps | 1. `go run ./cmd/server`, open `http://127.0.0.1:8080`. 2. Leave the cart empty. 3. Type `Asha Verma`. 4. Click **Place order**. |
+| Expected | Blocked; clear message; name kept; no order. |
+| Actual | *"Your cart is empty. Add at least one item before placing your order."* shown under the name field. `Asha Verma` was still in the field. No confirmation, and the server log shows no order request. |
+| Result | **Pass**. Evidence: [`evidence/MT-01-empty-cart-blocked.jpg`](evidence/MT-01-empty-cart-blocked.jpg) |
 
-### MT-02 — Rapid double-click on Place order
-
+### MT-02: Rapid double-click on Place order
 | | |
 |---|---|
-| Steps | 1. Fresh load. 2. Add *A5 Dotted Notebook* (total ₹149.75). 3. Enter `Asha Verma`. 4. Double-click **Place order** quickly. 5. Wait about 2 s and check the page again. |
-| Expected | Exactly one confirmation; reference does not change; one order created. |
-| Actual | One "Order confirmed" panel with reference **ORD-JMFZHP** and amount ₹149.75. Two seconds later the reference was the same, there was still one confirmation, and the page's order counter (`body[data-orders-placed]`) was `1`. The Place order button is no longer available after confirmation. |
-| Result | **Pass** |
-| Evidence | [`evidence/MT-02-double-click-single-confirmation.jpg`](evidence/MT-02-double-click-single-confirmation.jpg), [`evidence/MT-02-double-click-after-2s.jpg`](evidence/MT-02-double-click-after-2s.jpg) |
-| Note | The manual screenshot came after the 600 ms processing window, so it doesn't show the intermediate disabled *"Placing order…"* state. That state is asserted in automated test EC-03. |
+| Steps | Continue from MT-01: add *A5 Dotted Notebook* (₹149.75), then double-click **Place order** quickly. Wait 2 s. Check the page and the server log. |
+| Expected | One confirmation, one order. |
+| Actual | One "Order confirmed" panel, **ORD-YTJYVX**, ₹149.75, unchanged after 2 s. The server log has exactly **one** `order placed` line and no `duplicate submit` line, so the second click didn't even send a request. |
+| Result | **Pass**. Evidence: [`evidence/MT-02-double-click-one-confirmation.jpg`](evidence/MT-02-double-click-one-confirmation.jpg), [`evidence/MT-02-server-log.txt`](evidence/MT-02-server-log.txt) |
 
-## 4. Does the suite catch real bugs? (mutation check)
+## 4. Do the tests catch real bugs? (mutation check)
 
-I broke the app on purpose three times, ran the suite, then restored the code:
+Each bug was injected into the code, the suite was run, and the code was restored:
 
-| Bug injected | Tests that failed |
-|---|---|
-| Removed the submit guard and stopped disabling the button | EC-03, EC-04, EC-05 (3 failed) |
-| Name no longer required | TC-02 (blank), TC-02 (whitespace), EC-02 (3 failed) |
-| Line totals miscalculated by 0.1% | TC-01, TC-02 ×2, TC-03, EC-06, EC-08 (6 failed, all of which assert exact totals) |
+| Injected bug | Caught by | What it shows |
+|---|---|---|
+| **M1** Remove the browser's "already submitting" guard | EC-04 (browser) | The server still deduplicated (1 order), but the test also checks **requests sent**, so it catches the regression before it reaches customers |
+| **M2** Server ignores idempotency keys | 4 unit tests (incl. 50-goroutine concurrency test) + EC-06 lost-response test | The server is a real second line of defence, and it is tested |
+| **M3** Browser stops checking the name | TC-02 (both variants), EC-02 | Asserting "no request sent" catches it even though the server would also reject the order |
 
-## 5. Defect report
+## 5. Defect reports
 
-### DEF-01 — Order is placed when an invalid quantity is entered right before clicking Place order
-
+### DEF-01: Order placed while a quantity error is on screen (Major, fixed)
 | Field | Detail |
 |---|---|
-| Severity / Priority | **Major / P1.** The customer sees a validation error and an order confirmation at the same time, and the order uses a quantity they didn't confirm. |
-| Status | **Fixed** (verified manually and by regression test EC-08) |
-| Found by | Exploratory testing in Chrome around quantity input |
-| Build | Before fix (initial build) |
-| Steps to reproduce | 1. Fresh load. 2. Add *A5 Dotted Notebook*. 3. Enter `Asha Verma`. 4. Select the quantity field and type `0` (don't press Tab or Enter). 5. Click **Place order** straight away. |
-| Expected | Checkout is blocked until the quantity is fixed. No order is created. |
-| Actual | The quantity error *"Enter a whole number from 1 to 10."* appeared **and** an order was confirmed (**ORD-MDGCDH**, ₹149.75 for quantity 1) at the same moment. |
-| Root cause | Clicking the button blurs the field and fires `change`. `setQty` rejects `0` and keeps the old quantity (1), then `submit` runs. `validate()` checked only the cart and name, not rejected quantity edits. |
-| Fix | `validate()` also blocks checkout while any quantity error is showing: *"Fix the highlighted quantity before placing your order."* (`app/app.js`, `validate()`). |
-| Evidence | Before: [`evidence/DEF-01-invalid-qty-order-still-placed.jpg`](evidence/DEF-01-invalid-qty-order-still-placed.jpg) · After fix: [`evidence/DEF-01-after-fix-blocked.jpg`](evidence/DEF-01-after-fix-blocked.jpg) |
-| Regression test | `EC-08` in `tests/edge-cases.spec.js` failed before the fix (`Expected: "Fix the highlighted quantity…" Received: ""`) and passes after. |
+| Found in | Build v1 (vanilla JS), exploratory testing in Chrome |
+| Steps | 1. Add *A5 Dotted Notebook*. 2. Enter `Asha Verma`. 3. Type `0` in the quantity box (don't press Tab). 4. Click **Place order** at once. |
+| Expected | Checkout blocked until the quantity is fixed. |
+| Actual | The quantity error appeared **and** an order was confirmed (ORD-MDGCDH, ₹149.75, qty 1) at the same moment. |
+| Root cause | The click blurred the field. `change` rejected `0` and kept qty 1, then submit ran; validation didn't consider rejected quantity edits. |
+| Fix | Checkout is blocked while any quantity is invalid ("Fix the highlighted quantity before placing your order."). Server-side validation also rejects qty outside 1–10. |
+| Evidence | [before](evidence/DEF-01-invalid-qty-order-still-placed.jpg) · [after](evidence/DEF-01-after-fix-blocked.jpg) |
+| Regression test | EC-08 "invalid quantity blocks" (all browsers), EC-07 |
 
-## 6. Observations (not defects)
+### DEF-02: First click on Place order ignored in Firefox and WebKit after editing a quantity (Major, fixed)
+| Field | Detail |
+|---|---|
+| Found in | Build v1, when the suite was first run on Firefox and WebKit. Chromium was unaffected, so a Chrome-only suite would never have found it |
+| Steps | 1. Add *A5 Dotted Notebook*. 2. Enter a name. 3. Type `3` (or `0`) in the quantity box. 4. Click **Place order** once. |
+| Expected | Typed `3` → order for ₹449.25. Typed `0` → blocked with a message. |
+| Actual | **WebKit:** with `3`, nothing happened (no order, no message, button idle); with `0`, nothing happened either. **Firefox:** with `0`, nothing happened. The customer gets no feedback at all. |
+| Measured | Typed 3 → Chromium ✔ ₹449.25 · Firefox ✔ · WebKit ✘ ignored. Typed 0 → Chromium ✔ blocked · Firefox ✘ ignored · WebKit ✘ ignored |
+| Root cause (most likely) | The quantity was applied on `change`, which fires when the field loses focus, i.e. in the middle of the click on Place order. The handler then **rebuilt the whole cart DOM** (and for `0` added an error line that pushed the button down). Firefox and WebKit didn't deliver that click to the button. Confirmed indirectly: after removing the mid-click DOM rebuild, EC-08 passes on every engine. |
+| Fix | Quantity applies on every keystroke (`input`). Cart rows are created once and **updated in place**. Space for the error message is reserved, so nothing moves under the pointer. |
+| Evidence | [WebKit, typed 3, click ignored](evidence/DEF-02-before-fix-webkit-qty3-click-ignored.png) · [Chromium qty 0](evidence/DEF-02-before-fix-chromium-qty0.png) · [Firefox qty 0](evidence/DEF-02-before-fix-firefox-qty0.png) · [WebKit qty 0](evidence/DEF-02-before-fix-webkit-qty0.png) |
+| Regression test | EC-08 (both variants) on Chromium, Firefox, WebKit and mobile |
 
-- **Duplicate-order protection is client-side only.** It holds against double-click, repeated Enter and same-tick submits. A real store would also need a server-side idempotency key, because a second tab or a retried network request would bypass the browser guard.
-- Typing `1e1` in the quantity field is read as `10` (the browser's number input accepts exponent notation). The result is valid and the total is correct, so it isn't logged as a defect.
+### DEF-03: Cart overflows on phones; Remove button off-screen (Minor, fixed)
+| Field | Detail |
+|---|---|
+| Found in | Build v1, first run on the Pixel 7 profile (412 px wide) |
+| Steps | Open on a 412 px-wide screen, add both products. |
+| Expected | Everything fits; Remove can be tapped. |
+| Actual | The 5-column table made the page 509 px wide. Remove sat at x=420–505, outside the 412 px viewport, and the test's tap timed out because other cells covered it. |
+| Fix | Below 560 px each cart line is shown as a stacked card with labels. |
+| Evidence | [before](evidence/DEF-03-before-fix-mobile.png) · [after](screenshots/07-mobile.png) |
+| Regression test | EC-10 (checks no sideways scroll, Remove in viewport and working) on all 4 profiles |
+
+## 6. Open issue
+
+### FLAKE-01: Intermittent Firefox failure (open, not hidden by retries)
+- **Seen:** 2 failures in 39 Firefox suite runs (EC-09 once, TC-01 once). **0** failures in Chromium, WebKit and mobile across the same runs.
+- **Symptoms differ.** EC-09: the page stayed on "Placing order…" for more than 5 s although the server delay is 300 ms. TC-01: the server created the order and the confirmation was on screen in the failure screenshot, yet the visibility assertion failed after about 1.8 s.
+- **Evidence:** [EC-09 screenshot](evidence/FLAKE-01-firefox-stuck-placing-order.png), [TC-01 screenshot](evidence/FLAKE-01-firefox-confirmation-rendered-but-assert-failed.png)
+- **What I did:** added a timestamped browser event log (requests, responses, failures, console, JS errors) and server counters to every failure report, then stress-ran the suite: 23 runs in a row passed after that, so the root cause isn't confirmed yet.
+- **Current hypotheses:** (a) a Firefox/Juggler timing issue in the test tooling (the TC-01 symptom points this way); (b) a delayed fetch response in Firefox (the EC-09 symptom). Next step: capture a Playwright trace in CI when it recurs.
+- **Why not add retries:** a retry would make the dashboard green and hide a possible real "button stuck" bug from customers.
+
+## 7. Observations (not defects)
+
+- Duplicate protection now works at two layers: the browser (guard + disabled button) and the server (idempotency key). The server store is in memory; production would need a shared store such as a DB unique key or Redis `SETNX`.
+- The server never trusts prices from the browser. It re-prices from its catalogue and refuses the order (`409 price_changed`) if the total differs from what the customer saw.

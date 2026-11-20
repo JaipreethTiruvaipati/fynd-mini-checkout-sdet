@@ -1,0 +1,2 @@
+time=2026-11-21T00:53:45.512+05:30 level=INFO msg="mini checkout running" url=http://127.0.0.1:8080
+time=2026-11-21T00:54:07.742+05:30 level=INFO msg="order placed" reference=ORD-YTJYVX total=₹149.75

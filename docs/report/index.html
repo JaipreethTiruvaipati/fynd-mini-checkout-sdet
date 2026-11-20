@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Test report — Mini Checkout</title>
+<style>
+body{font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;margin:0;background:#f6f7f9;color:#1d2433}
+main{max-width:1100px;margin:0 auto;padding:28px 18px 60px}
+h1{margin:0 0 4px}h2{margin:32px 0 10px;font-size:1.15rem}
+.meta{color:#5b6475;margin:0 0 18px}
+.tiles{display:flex;gap:12px;flex-wrap:wrap}
+.tile{background:#fff;border:1px solid #dde1e7;border-radius:10px;padding:14px 18px;min-width:140px}
+.tile b{display:block;font-size:1.8rem;line-height:1.2}
+table{width:100%;border-collapse:collapse;background:#fff;border:1px solid #dde1e7;border-radius:10px;overflow:hidden}
+th,td{padding:8px 10px;border-bottom:1px solid #eef0f3;text-align:left;vertical-align:top}
+th{background:#f0f2f5;font-weight:600}
+.pass{color:#067647;font-weight:600}.fail{color:#b42318;font-weight:700}.skip{color:#8a6d00}
+td.c{text-align:center}
+pre{white-space:pre-wrap;background:#1d2433;color:#f6f7f9;padding:10px;border-radius:6px;font-size:12px;max-height:320px;overflow:auto}
+code{font-size:13px}
+</style></head><body><main>
+<h1>Test report — Mini Checkout</h1>
+<p class="meta">Run 21 Nov 2026 00:52 IST · took 58s · go1.26.1 on darwin/arm64 · retries: 0</p>
+<div class="tiles">
+<div class="tile"><b>88</b>tests</div>
+<div class="tile"><b class="pass">88</b>passed</div>
+<div class="tile"><b class="">0</b>failed</div>
+</div>
+
+<h2>Cross-browser matrix (browser tests)</h2>
+<table><thead><tr><th>Scenario</th><th class="c">chromium</th><th class="c">firefox</th><th class="c">webkit</th><th class="c">mobile-chrome</th></tr></thead><tbody>
+<tr><td><code>TestEC_01_EmptyCartBlocksCheckoutAndKeepsName</code></td><td class="c pass">✔</td><td class="c pass">✔</td><td class="c pass">✔</td><td class="c pass">✔</td></tr><tr><td><code>TestEC_02_EmptyCartAndBlankNameShowBothMessages</code></td><td class="c pass">✔</td><td class="c pass">✔</td><td class="c pass">✔</td><td class="c pass">✔</td></tr><tr><td><code>TestEC_03_DoubleClickPlacesOneOrder</code></td><td class="c pass">✔</td><td class="c pass">✔</td><td class="c pass">✔</td><td class="c pass">✔</td></tr><tr><td><code>TestEC_04_SameTickSubmitsPlaceOneOrder</code></td><td class="c pass">✔</td><td class="c pass">✔</td><td class="c pass">✔</td><td class="c pass">✔</td></tr><tr><td><code>TestEC_05_RepeatedEnterPlacesOneOrder</code></td><td class="c pass">✔</td><td class="c pass">✔</td><td class="c pass">✔</td><td class="c pass">✔</td></tr><tr><td><code>TestEC_06_LostResponseRetryDoesNotCreateSecondOrder</code></td><td class="c pass">✔</td><td class="c pass">✔</td><td class="c pass">✔</td><td class="c pass">✔</td></tr><tr><td><code>TestEC_07_InvalidQuantityIsRejected</code></td><td class="c pass">✔</td><td class="c pass">✔</td><td class="c pass">✔</td><td class="c pass">✔</td></tr><tr><td><code>TestEC_08_TypeQuantityThenClickPlaceOrderImmediately invalid_quantity_blocks</code></td><td class="c pass">✔</td><td class="c pass">✔</td><td class="c pass">✔</td><td class="c pass">✔</td></tr><tr><td><code>TestEC_08_TypeQuantityThenClickPlaceOrderImmediately valid_quantity_is_used</code></td><td class="c pass">✔</td><td class="c pass">✔</td><td class="c pass">✔</td><td class="c pass">✔</td></tr><tr><td><code>TestEC_09_StartNewOrderResets</code></td><td class="c pass">✔</td><td class="c pass">✔</td><td class="c pass">✔</td><td class="c pass">✔</td></tr><tr><td><code>TestEC_10_CartFitsTheScreen</code></td><td class="c pass">✔</td><td class="c pass">✔</td><td class="c pass">✔</td><td class="c pass">✔</td></tr><tr><td><code>TestTC_01_SuccessfulCheckoutShowsOneConfirmation</code></td><td class="c pass">✔</td><td class="c pass">✔</td><td class="c pass">✔</td><td class="c pass">✔</td></tr><tr><td><code>TestTC_02_MissingNameBlocksCheckout blank</code></td><td class="c pass">✔</td><td class="c pass">✔</td><td class="c pass">✔</td><td class="c pass">✔</td></tr><tr><td><code>TestTC_02_MissingNameBlocksCheckout whitespace</code></td><td class="c pass">✔</td><td class="c pass">✔</td><td class="c pass">✔</td><td class="c pass">✔</td></tr><tr><td><code>TestTC_03_QuantityChangeUpdatesExactTotal</code></td><td class="c pass">✔</td><td class="c pass">✔</td><td class="c pass">✔</td><td class="c pass">✔</td></tr>
+</tbody></table>
+
+<h2>All tests</h2>
+<table><thead><tr><th>Suite</th><th>Test</th><th>Case</th><th>Result</th><th>Time</th></tr></thead><tbody>
+<tr><td>Browser (e2e)</td><td><code>TestEC_01_EmptyCartBlocksCheckoutAndKeepsName</code></td><td><code>chromium</code></td><td class="pass">pass</td><td>0.22s</td></tr>
+<tr><td>Browser (e2e)</td><td><code>TestEC_01_EmptyCartBlocksCheckoutAndKeepsName</code></td><td><code>firefox</code></td><td class="pass">pass</td><td>0.63s</td></tr>
+<tr><td>Browser (e2e)</td><td><code>TestEC_01_EmptyCartBlocksCheckoutAndKeepsName</code></td><td><code>mobile-chrome</code></td><td class="pass">pass</td><td>0.21s</td></tr>
+<tr><td>Browser (e2e)</td><td><code>TestEC_01_EmptyCartBlocksCheckoutAndKeepsName</code></td><td><code>webkit</code></td><td class="pass">pass</td><td>0.45s</td></tr>
+<tr><td>Browser (e2e)</td><td><code>TestEC_02_EmptyCartAndBlankNameShowBothMessages</code></td><td><code>chromium</code></td><td class="pass">pass</td><td>0.13s</td></tr>
+<tr><td>Browser (e2e)</td><td><code>TestEC_02_EmptyCartAndBlankNameShowBothMessages</code></td><td><code>firefox</code></td><td class="pass">pass</td><td>0.50s</td></tr>
+<tr><td>Browser (e2e)</td><td><code>TestEC_02_EmptyCartAndBlankNameShowBothMessages</code></td><td><code>mobile-chrome</code></td><td class="pass">pass</td><td>0.21s</td></tr>
+<tr><td>Browser (e2e)</td><td><code>TestEC_02_EmptyCartAndBlankNameShowBothMessages</code></td><td><code>webkit</code></td><td class="pass">pass</td><td>0.35s</td></tr>
+<tr><td>Browser (e2e)</td><td><code>TestEC_03_DoubleClickPlacesOneOrder</code></td><td><code>chromium</code></td><td class="pass">pass</td><td>0.50s</td></tr>
+<tr><td>Browser (e2e)</td><td><code>TestEC_03_DoubleClickPlacesOneOrder</code></td><td><code>firefox</code></td><td class="pass">pass</td><td>1.59s</td></tr>
+<tr><td>Browser (e2e)</td><td><code>TestEC_03_DoubleClickPlacesOneOrder</code></td><td><code>mobile-chrome</code></td><td class="pass">pass</td><td>1.02s</td></tr>
+<tr><td>Browser (e2e)</td><td><code>TestEC_03_DoubleClickPlacesOneOrder</code></td><td><code>webkit</code></td><td class="pass">pass</td><td>1.27s</td></tr>
+<tr><td>Browser (e2e)</td><td><code>TestEC_04_SameTickSubmitsPlaceOneOrder</code></td><td><code>chromium</code></td><td class="pass">pass</td><td>0.47s</td></tr>
+<tr><td>Browser (e2e)</td><td><code>TestEC_04_SameTickSubmitsPlaceOneOrder</code></td><td><code>firefox</code></td><td class="pass">pass</td><td>0.69s</td></tr>
+<tr><td>Browser (e2e)</td><td><code>TestEC_04_SameTickSubmitsPlaceOneOrder</code></td><td><code>mobile-chrome</code></td><td class="pass">pass</td><td>0.95s</td></tr>
+<tr><td>Browser (e2e)</td><td><code>TestEC_04_SameTickSubmitsPlaceOneOrder</code></td><td><code>webkit</code></td><td class="pass">pass</td><td>1.18s</td></tr>
+<tr><td>Browser (e2e)</td><td><code>TestEC_05_RepeatedEnterPlacesOneOrder</code></td><td><code>chromium</code></td><td class="pass">pass</td><td>0.46s</td></tr>
+<tr><td>Browser (e2e)</td><td><code>TestEC_05_RepeatedEnterPlacesOneOrder</code></td><td><code>firefox</code></td><td class="pass">pass</td><td>0.67s</td></tr>
+<tr><td>Browser (e2e)</td><td><code>TestEC_05_RepeatedEnterPlacesOneOrder</code></td><td><code>mobile-chrome</code></td><td class="pass">pass</td><td>0.47s</td></tr>
+<tr><td>Browser (e2e)</td><td><code>TestEC_05_RepeatedEnterPlacesOneOrder</code></td><td><code>webkit</code></td><td class="pass">pass</td><td>0.68s</td></tr>
+<tr><td>Browser (e2e)</td><td><code>TestEC_06_LostResponseRetryDoesNotCreateSecondOrder</code></td><td><code>chromium</code></td><td class="pass">pass</td><td>1.01s</td></tr>
+<tr><td>Browser (e2e)</td><td><code>TestEC_06_LostResponseRetryDoesNotCreateSecondOrder</code></td><td><code>firefox</code></td><td class="pass">pass</td><td>1.87s</td></tr>
+<tr><td>Browser (e2e)</td><td><code>TestEC_06_LostResponseRetryDoesNotCreateSecondOrder</code></td><td><code>mobile-chrome</code></td><td class="pass">pass</td><td>1.07s</td></tr>
+<tr><td>Browser (e2e)</td><td><code>TestEC_06_LostResponseRetryDoesNotCreateSecondOrder</code></td><td><code>webkit</code></td><td class="pass">pass</td><td>1.25s</td></tr>
+<tr><td>Browser (e2e)</td><td><code>TestEC_07_InvalidQuantityIsRejected</code></td><td><code>chromium</code></td><td class="pass">pass</td><td>0.47s</td></tr>
+<tr><td>Browser (e2e)</td><td><code>TestEC_07_InvalidQuantityIsRejected</code></td><td><code>firefox</code></td><td class="pass">pass</td><td>1.22s</td></tr>
+<tr><td>Browser (e2e)</td><td><code>TestEC_07_InvalidQuantityIsRejected</code></td><td><code>mobile-chrome</code></td><td class="pass">pass</td><td>0.25s</td></tr>
+<tr><td>Browser (e2e)</td><td><code>TestEC_07_InvalidQuantityIsRejected</code></td><td><code>webkit</code></td><td class="pass">pass</td><td>0.59s</td></tr>
+<tr><td>Browser (e2e)</td><td><code>TestEC_08_TypeQuantityThenClickPlaceOrderImmediately</code></td><td><code>invalid_quantity_blocks/chromium</code></td><td class="pass">pass</td><td>0.18s</td></tr>
+<tr><td>Browser (e2e)</td><td><code>TestEC_08_TypeQuantityThenClickPlaceOrderImmediately</code></td><td><code>invalid_quantity_blocks/firefox</code></td><td class="pass">pass</td><td>0.39s</td></tr>
+<tr><td>Browser (e2e)</td><td><code>TestEC_08_TypeQuantityThenClickPlaceOrderImmediately</code></td><td><code>invalid_quantity_blocks/mobile-chrome</code></td><td class="pass">pass</td><td>0.20s</td></tr>
+<tr><td>Browser (e2e)</td><td><code>TestEC_08_TypeQuantityThenClickPlaceOrderImmediately</code></td><td><code>invalid_quantity_blocks/webkit</code></td><td class="pass">pass</td><td>0.41s</td></tr>
+<tr><td>Browser (e2e)</td><td><code>TestEC_08_TypeQuantityThenClickPlaceOrderImmediately</code></td><td><code>valid_quantity_is_used/chromium</code></td><td class="pass">pass</td><td>0.96s</td></tr>
+<tr><td>Browser (e2e)</td><td><code>TestEC_08_TypeQuantityThenClickPlaceOrderImmediately</code></td><td><code>valid_quantity_is_used/firefox</code></td><td class="pass">pass</td><td>0.81s</td></tr>
+<tr><td>Browser (e2e)</td><td><code>TestEC_08_TypeQuantityThenClickPlaceOrderImmediately</code></td><td><code>valid_quantity_is_used/mobile-chrome</code></td><td class="pass">pass</td><td>1.01s</td></tr>
+<tr><td>Browser (e2e)</td><td><code>TestEC_08_TypeQuantityThenClickPlaceOrderImmediately</code></td><td><code>valid_quantity_is_used/webkit</code></td><td class="pass">pass</td><td>1.21s</td></tr>
+<tr><td>Browser (e2e)</td><td><code>TestEC_09_StartNewOrderResets</code></td><td><code>chromium</code></td><td class="pass">pass</td><td>1.87s</td></tr>
+<tr><td>Browser (e2e)</td><td><code>TestEC_09_StartNewOrderResets</code></td><td><code>firefox</code></td><td class="pass">pass</td><td>1.19s</td></tr>
+<tr><td>Browser (e2e)</td><td><code>TestEC_09_StartNewOrderResets</code></td><td><code>mobile-chrome</code></td><td class="pass">pass</td><td>1.96s</td></tr>
+<tr><td>Browser (e2e)</td><td><code>TestEC_09_StartNewOrderResets</code></td><td><code>webkit</code></td><td class="pass">pass</td><td>2.18s</td></tr>
+<tr><td>Browser (e2e)</td><td><code>TestEC_10_CartFitsTheScreen</code></td><td><code>chromium</code></td><td class="pass">pass</td><td>0.29s</td></tr>
+<tr><td>Browser (e2e)</td><td><code>TestEC_10_CartFitsTheScreen</code></td><td><code>firefox</code></td><td class="pass">pass</td><td>0.72s</td></tr>
+<tr><td>Browser (e2e)</td><td><code>TestEC_10_CartFitsTheScreen</code></td><td><code>mobile-chrome</code></td><td class="pass">pass</td><td>0.26s</td></tr>
+<tr><td>Browser (e2e)</td><td><code>TestEC_10_CartFitsTheScreen</code></td><td><code>webkit</code></td><td class="pass">pass</td><td>0.72s</td></tr>
+<tr><td>Browser (e2e)</td><td><code>TestTC_01_SuccessfulCheckoutShowsOneConfirmation</code></td><td><code>chromium</code></td><td class="pass">pass</td><td>1.08s</td></tr>
+<tr><td>Browser (e2e)</td><td><code>TestTC_01_SuccessfulCheckoutShowsOneConfirmation</code></td><td><code>firefox</code></td><td class="pass">pass</td><td>1.43s</td></tr>
+<tr><td>Browser (e2e)</td><td><code>TestTC_01_SuccessfulCheckoutShowsOneConfirmation</code></td><td><code>mobile-chrome</code></td><td class="pass">pass</td><td>0.58s</td></tr>
+<tr><td>Browser (e2e)</td><td><code>TestTC_01_SuccessfulCheckoutShowsOneConfirmation</code></td><td><code>webkit</code></td><td class="pass">pass</td><td>1.44s</td></tr>
+<tr><td>Browser (e2e)</td><td><code>TestTC_02_MissingNameBlocksCheckout</code></td><td><code>blank/chromium</code></td><td class="pass">pass</td><td>1.19s</td></tr>
+<tr><td>Browser (e2e)</td><td><code>TestTC_02_MissingNameBlocksCheckout</code></td><td><code>blank/firefox</code></td><td class="pass">pass</td><td>0.98s</td></tr>
+<tr><td>Browser (e2e)</td><td><code>TestTC_02_MissingNameBlocksCheckout</code></td><td><code>blank/mobile-chrome</code></td><td class="pass">pass</td><td>1.06s</td></tr>
+<tr><td>Browser (e2e)</td><td><code>TestTC_02_MissingNameBlocksCheckout</code></td><td><code>blank/webkit</code></td><td class="pass">pass</td><td>1.34s</td></tr>
+<tr><td>Browser (e2e)</td><td><code>TestTC_02_MissingNameBlocksCheckout</code></td><td><code>whitespace/chromium</code></td><td class="pass">pass</td><td>1.02s</td></tr>
+<tr><td>Browser (e2e)</td><td><code>TestTC_02_MissingNameBlocksCheckout</code></td><td><code>whitespace/firefox</code></td><td class="pass">pass</td><td>0.77s</td></tr>
+<tr><td>Browser (e2e)</td><td><code>TestTC_02_MissingNameBlocksCheckout</code></td><td><code>whitespace/mobile-chrome</code></td><td class="pass">pass</td><td>1.09s</td></tr>
+<tr><td>Browser (e2e)</td><td><code>TestTC_02_MissingNameBlocksCheckout</code></td><td><code>whitespace/webkit</code></td><td class="pass">pass</td><td>1.28s</td></tr>
+<tr><td>Browser (e2e)</td><td><code>TestTC_03_QuantityChangeUpdatesExactTotal</code></td><td><code>chromium</code></td><td class="pass">pass</td><td>1.17s</td></tr>
+<tr><td>Browser (e2e)</td><td><code>TestTC_03_QuantityChangeUpdatesExactTotal</code></td><td><code>firefox</code></td><td class="pass">pass</td><td>1.22s</td></tr>
+<tr><td>Browser (e2e)</td><td><code>TestTC_03_QuantityChangeUpdatesExactTotal</code></td><td><code>mobile-chrome</code></td><td class="pass">pass</td><td>1.19s</td></tr>
+<tr><td>Browser (e2e)</td><td><code>TestTC_03_QuantityChangeUpdatesExactTotal</code></td><td><code>webkit</code></td><td class="pass">pass</td><td>1.20s</td></tr>
+<tr><td>Unit: HTTP API</td><td><code>TestOnlyPostAllowedOnOrders</code></td><td><code></code></td><td class="pass">pass</td><td>0.00s</td></tr>
+<tr><td>Unit: HTTP API</td><td><code>TestPlaceOrder_CreatedThenReplayed</code></td><td><code></code></td><td class="pass">pass</td><td>0.00s</td></tr>
+<tr><td>Unit: HTTP API</td><td><code>TestPlaceOrder_ErrorResponses</code></td><td><code>malformed_json</code></td><td class="pass">pass</td><td>0.00s</td></tr>
+<tr><td>Unit: HTTP API</td><td><code>TestPlaceOrder_ErrorResponses</code></td><td><code>price_changed</code></td><td class="pass">pass</td><td>0.00s</td></tr>
+<tr><td>Unit: HTTP API</td><td><code>TestPlaceOrder_ErrorResponses</code></td><td><code>unknown_field</code></td><td class="pass">pass</td><td>0.00s</td></tr>
+<tr><td>Unit: HTTP API</td><td><code>TestPlaceOrder_ErrorResponses</code></td><td><code>validation</code></td><td class="pass">pass</td><td>0.00s</td></tr>
+<tr><td>Unit: HTTP API</td><td><code>TestProducts</code></td><td><code></code></td><td class="pass">pass</td><td>0.00s</td></tr>
+<tr><td>Unit: HTTP API</td><td><code>TestStaticPageServedWithSecurityHeaders</code></td><td><code></code></td><td class="pass">pass</td><td>0.02s</td></tr>
+<tr><td>Unit: checkout rules</td><td><code>TestFormatINR</code></td><td><code></code></td><td class="pass">pass</td><td>0.00s</td></tr>
+<tr><td>Unit: checkout rules</td><td><code>TestPlaceOrder_CancelledAttemptCanBeRetried</code></td><td><code></code></td><td class="pass">pass</td><td>0.00s</td></tr>
+<tr><td>Unit: checkout rules</td><td><code>TestPlaceOrder_ConcurrentDuplicatesCreateExactlyOneOrder</code></td><td><code></code></td><td class="pass">pass</td><td>0.02s</td></tr>
+<tr><td>Unit: checkout rules</td><td><code>TestPlaceOrder_CreatesOrderWithReadableReference</code></td><td><code></code></td><td class="pass">pass</td><td>0.00s</td></tr>
+<tr><td>Unit: checkout rules</td><td><code>TestPlaceOrder_DifferentKeysCreateDifferentOrders</code></td><td><code></code></td><td class="pass">pass</td><td>0.00s</td></tr>
+<tr><td>Unit: checkout rules</td><td><code>TestPlaceOrder_KeyReusedForDifferentCartIsRejected</code></td><td><code></code></td><td class="pass">pass</td><td>0.00s</td></tr>
+<tr><td>Unit: checkout rules</td><td><code>TestPlaceOrder_SameKeyReturnsSameOrder</code></td><td><code></code></td><td class="pass">pass</td><td>0.00s</td></tr>
+<tr><td>Unit: checkout rules</td><td><code>TestPrice_BoundaryQuantitiesAreAccepted</code></td><td><code></code></td><td class="pass">pass</td><td>0.00s</td></tr>
+<tr><td>Unit: checkout rules</td><td><code>TestPrice_RejectsTotalTheCustomerDidNotSee</code></td><td><code></code></td><td class="pass">pass</td><td>0.00s</td></tr>
+<tr><td>Unit: checkout rules</td><td><code>TestPrice_ValidOrderIsPricedFromCatalog</code></td><td><code></code></td><td class="pass">pass</td><td>0.00s</td></tr>
+<tr><td>Unit: checkout rules</td><td><code>TestPrice_Validation</code></td><td><code>blank_name</code></td><td class="pass">pass</td><td>0.00s</td></tr>
+<tr><td>Unit: checkout rules</td><td><code>TestPrice_Validation</code></td><td><code>duplicate_product</code></td><td class="pass">pass</td><td>0.00s</td></tr>
+<tr><td>Unit: checkout rules</td><td><code>TestPrice_Validation</code></td><td><code>empty_cart</code></td><td class="pass">pass</td><td>0.00s</td></tr>
+<tr><td>Unit: checkout rules</td><td><code>TestPrice_Validation</code></td><td><code>missing_idempotency_key</code></td><td class="pass">pass</td><td>0.00s</td></tr>
+<tr><td>Unit: checkout rules</td><td><code>TestPrice_Validation</code></td><td><code>name_too_long</code></td><td class="pass">pass</td><td>0.00s</td></tr>
+<tr><td>Unit: checkout rules</td><td><code>TestPrice_Validation</code></td><td><code>qty_above_max</code></td><td class="pass">pass</td><td>0.00s</td></tr>
+<tr><td>Unit: checkout rules</td><td><code>TestPrice_Validation</code></td><td><code>qty_negative</code></td><td class="pass">pass</td><td>0.00s</td></tr>
+<tr><td>Unit: checkout rules</td><td><code>TestPrice_Validation</code></td><td><code>qty_zero</code></td><td class="pass">pass</td><td>0.00s</td></tr>
+<tr><td>Unit: checkout rules</td><td><code>TestPrice_Validation</code></td><td><code>unknown_product</code></td><td class="pass">pass</td><td>0.00s</td></tr>
+<tr><td>Unit: checkout rules</td><td><code>TestPrice_Validation</code></td><td><code>whitespace_name</code></td><td class="pass">pass</td><td>0.00s</td></tr>
+
+</tbody></table>
+</main></body></html>

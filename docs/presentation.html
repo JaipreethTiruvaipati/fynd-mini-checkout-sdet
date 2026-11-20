@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mini Checkout: SDET Intern · Fynd Hiring Hackathon</title>
+<style>
+  :root { --ink:#111827; --muted:#5b6475; --brand:#1d4ed8; --ok:#067647; --bad:#b42318; --bg:#f6f7f9; --card:#fff; --line:#e3e6eb; }
+  * { box-sizing: border-box; }
+  html, body { margin:0; height:100%; background:#0f172a; font-family: system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; color:var(--ink); }
+  .deck { height:100%; display:grid; place-items:center; }
+  .slide { display:none; width:min(1200px,96vw); aspect-ratio:16/9; background:var(--bg); border-radius:14px;
+           padding:3.2% 4.2%; position:relative; overflow:hidden; box-shadow:0 20px 60px rgba(0,0,0,.4); }
+  .slide.active { display:flex; flex-direction:column; }
+  h1 { font-size:clamp(28px,3.6vw,48px); margin:0 0 .3em; letter-spacing:-.02em; }
+  h2 { font-size:clamp(22px,2.5vw,34px); margin:0 0 .6em; letter-spacing:-.01em; }
+  p, li, td, th { font-size:clamp(13px,1.35vw,19px); line-height:1.45; }
+  .muted { color:var(--muted); }
+  .kicker { color:var(--brand); font-weight:700; text-transform:uppercase; letter-spacing:.08em; font-size:clamp(11px,1vw,14px); margin-bottom:.6em; }
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:3%; flex:1; min-height:0; align-items:start; }
+  .grid3 { display:grid; grid-template-columns:repeat(3,1fr); gap:2.5%; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:4% 5%; }
+  .stat b { display:block; font-size:clamp(28px,3.6vw,52px); line-height:1.05; letter-spacing:-.02em; }
+  .ok { color:var(--ok); } .bad { color:var(--bad); }
+  img.shot { width:100%; border-radius:10px; border:1px solid var(--line); box-shadow:0 4px 16px rgba(0,0,0,.08); }
+  table { border-collapse:collapse; width:100%; background:var(--card); border-radius:10px; overflow:hidden; }
+  th, td { text-align:left; padding:.45em .7em; border-bottom:1px solid var(--line); vertical-align:top; }
+  th { background:#eef1f5; }
+  code { font-family: ui-monospace,SFMono-Regular,Menlo,monospace; font-size:.92em; background:#eef1f5; padding:.08em .35em; border-radius:4px; }
+  ul { margin:.2em 0; padding-left:1.2em; } li { margin:.25em 0; }
+  .tag { display:inline-block; padding:.1em .55em; border-radius:999px; font-weight:700; font-size:.8em; }
+  .tag.major { background:#fee4e2; color:var(--bad); } .tag.minor { background:#fef0c7; color:#8a6d00; } .tag.open { background:#e0eaff; color:var(--brand); }
+  .footer { position:absolute; left:4.2%; right:4.2%; bottom:2.4%; display:flex; justify-content:space-between; color:var(--muted); font-size:clamp(10px,.9vw,13px); }
+  .layers { display:flex; flex-direction:column; gap:.6em; }
+  .layer { background:var(--card); border:1px solid var(--line); border-left:6px solid var(--brand); border-radius:10px; padding:.6em 1em; }
+  .layer.l2 { border-left-color:#7c3aed; } .layer.l3 { border-left-color:var(--ok); }
+  .nav { position:fixed; bottom:12px; right:16px; color:#94a3b8; font:13px system-ui; }
+  .title-slide { justify-content:center; background:linear-gradient(135deg,#eef2ff 0%,#f6f7f9 60%); }
+  .big { font-size:clamp(16px,1.8vw,24px); }
+  @media print { body{background:#fff} .slide{display:flex!important; page-break-after:always; box-shadow:none; width:100%} .nav{display:none} }
+</style>
+</head>
+<body>
+<div class="deck">
+
+<!-- 1 -->
+<section class="slide active title-slide">
+  <div class="kicker">Fynd Hiring Hackathon · SDET Intern</div>
+  <h1>Mini Checkout &amp; Browser Test Suite</h1>
+  <p class="big muted">A checkout with a Go backend, tested in Chromium, Firefox, WebKit and on mobile.<br>Three real defects found and fixed. One flaky test investigated, not hidden.</p>
+  <div class="grid3" style="margin-top:4%">
+    <div class="card stat"><b class="ok">88/88</b>tests passing<br><span class="muted">28 unit + 60 browser, 0 retries</span></div>
+    <div class="card stat"><b>4</b>browser profiles<br><span class="muted">Chromium · Firefox · WebKit · Pixel 7</span></div>
+    <div class="card stat"><b class="bad">3</b>real defects<br><span class="muted">reported with evidence, fixed, regression-tested</span></div>
+  </div>
+  <div class="footer"><span>Tiruvaipati Jaipreeth</span><span>github.com/JaipreethTiruvaipati/fynd-mini-checkout-sdet</span></div>
+</section>
+
+<!-- 2 -->
+<section class="slide">
+  <div class="kicker">The brief</div>
+  <h2>What the customer needs, and what can go wrong</h2>
+  <div class="grid2">
+    <div>
+      <ul>
+        <li>See the <b>correct total</b> as they change the cart</li>
+        <li>Know <b>which field is missing</b>, without losing their input</li>
+        <li>Get <b>one clear confirmation</b>, never two orders</li>
+      </ul>
+      <p class="muted" style="margin-top:1.2em">Deliverables: checkout page · 3 automated checks · test plan · manual tests (empty cart, double-click) · defects with evidence</p>
+    </div>
+    <table>
+      <tr><th>Top risks (P1)</th><th>Why it matters</th></tr>
+      <tr><td>Duplicate order</td><td>Customer charged twice</td></tr>
+      <tr><td>Wrong amount</td><td>Charged a different total than shown</td></tr>
+      <tr><td>Invalid order accepted</td><td>Unfulfillable order</td></tr>
+      <tr><td>Click lost in some browsers</td><td>"Nothing happens", customer leaves</td></tr>
+    </table>
+  </div>
+  <div class="footer"><span>Risk-based: tests are prioritised by customer impact</span><span>2</span></div>
+</section>
+
+<!-- 3 -->
+<section class="slide">
+  <div class="kicker">The product</div>
+  <h2>Go backend + plain HTML/JS page, shipped as one binary</h2>
+  <div class="grid2">
+    <img class="shot" src="screenshots/02-cart-totals.png" alt="Cart with totals">
+    <div>
+      <ul>
+        <li><b>Money in integer paise</b>: <code>3 × ₹149.75 = ₹449.25</code> exactly (float gives 449.2499…)</li>
+        <li><b>Server re-prices every order</b> and refuses it if the total differs from what the customer saw</li>
+        <li><b>Idempotency key</b> per checkout attempt, so a retry returns the same order</li>
+        <li>Clear validation; input is always kept; totals show "—" when a quantity is invalid</li>
+        <li>Responsive: each cart line becomes a card on phones</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer"><span>internal/checkout · internal/web · cmd/server</span><span>3</span></div>
+</section>
+
+<!-- 4 -->
+<section class="slide">
+  <div class="kicker">Duplicate orders</div>
+  <h2>Two layers of protection, each tested on its own</h2>
+  <div class="grid2">
+    <div class="layers">
+      <div class="layer"><b>Layer 1: browser</b><br>"submitting" set synchronously before any network call; button disabled</div>
+      <div class="layer l2"><b>Layer 2: server</b><br>Same idempotency key → same order. Concurrent duplicates wait for the first and get its reference</div>
+      <div class="layer l3"><b>Tested by</b><br>double-click · 3 submits in one tick · Enter ×3 · <b>lost response + retry</b> · 50 concurrent goroutines (<code>-race</code>)</div>
+    </div>
+    <img class="shot" src="screenshots/05-placing-order.png" alt="Placing order state">
+  </div>
+  <div class="footer"><span>EC-03 · EC-04 · EC-05 · EC-06 · TestPlaceOrder_ConcurrentDuplicates…</span><span>4</span></div>
+</section>
+
+<!-- 5 -->
+<section class="slide">
+  <div class="kicker">How I test</div>
+  <h2>Test pyramid, and the rules every browser test follows</h2>
+  <div class="grid2">
+    <table>
+      <tr><th>Level</th><th>What</th><th>Count</th></tr>
+      <tr><td>Unit (Go)</td><td>pricing, INR format, 10 validation rules, idempotency, HTTP codes</td><td>28</td></tr>
+      <tr><td>Browser (playwright-go)</td><td>15 scenarios × 4 browser profiles</td><td>60</td></tr>
+      <tr><td>Manual</td><td>empty cart, rapid double-click + exploratory</td><td>2+</td></tr>
+    </table>
+    <ul>
+      <li><b>Clean state:</b> a new Go server <i>and</i> a new browser context per test</li>
+      <li><b>Customer's view:</b> role/label locators, exact ₹ text</li>
+      <li><b>Source of truth:</b> tests also check the server's order store</li>
+      <li><b>No fixed waits</b>, <b>no retries</b></li>
+      <li><b>On failure:</b> screenshot + timestamped browser event log</li>
+    </ul>
+  </div>
+  <div class="footer"><span>e2e/harness_test.go · e2e/checkout_test.go</span><span>5</span></div>
+</section>
+
+<!-- 6 -->
+<section class="slide">
+  <div class="kicker">Required checks + results</div>
+  <h2>Every scenario passes on every engine</h2>
+  <div class="grid2">
+    <img class="shot" src="screenshots/08-test-report.png" alt="Test report">
+    <div>
+      <ul>
+        <li><b>TC-01</b> success → exactly one confirmation; server order matches the screen</li>
+        <li><b>TC-02</b> blank / whitespace name → blocked, field focused, cart kept, <b>no request sent</b></li>
+        <li><b>TC-03</b> quantity changes → exact totals; server charges exactly ₹449.25</li>
+        <li><b>Manual:</b> empty cart ✔ · double-click ✔ (UI + server log show 1 order)</li>
+      </ul>
+      <p class="muted">HTML report generated from <code>go test -json</code> by <code>cmd/testreport</code>; CI runs each engine as its own job</p>
+    </div>
+  </div>
+  <div class="footer"><span>docs/report/index.html</span><span>6</span></div>
+</section>
+
+<!-- 7 -->
+<section class="slide">
+  <div class="kicker">Defects found (real, not invented)</div>
+  <h2>Three bugs, each found by a different technique</h2>
+  <table>
+    <tr><th>ID</th><th>What happened</th><th>Found by</th><th>Fix</th></tr>
+    <tr><td><span class="tag major">DEF-01</span></td><td>Typing <code>0</code> then clicking Place order <b>placed the order while showing an error</b></td><td>Exploratory testing</td><td>Block checkout while any qty is invalid (client + server)</td></tr>
+    <tr><td><span class="tag major">DEF-02</span></td><td>After editing a qty, the first click was <b>silently ignored in Firefox &amp; WebKit</b>. Chromium was fine</td><td>Cross-browser run</td><td>Update rows in place, no DOM rebuild mid-click; reserved error space</td></tr>
+    <tr><td><span class="tag minor">DEF-03</span></td><td>On a 412 px phone the page was 509 px wide; <b>Remove off-screen</b></td><td>Mobile profile</td><td>Stacked card layout under 560 px</td></tr>
+    <tr><td><span class="tag open">FLAKE-01</span></td><td>Intermittent Firefox failure: 2 in 39 runs</td><td>Repeat runs</td><td><b>Open.</b> Logged and investigated; retries deliberately not added</td></tr>
+  </table>
+  <p class="muted" style="margin-top:1em">DEF-02 is why the suite runs on more than one engine: a Chrome-only suite was green the whole time.</p>
+  <div class="footer"><span>docs/TEST_RESULTS.md: steps, expected vs actual, screenshots</span><span>7</span></div>
+</section>
+
+<!-- 8 -->
+<section class="slide">
+  <div class="kicker">Testing the tests</div>
+  <h2>I broke the code on purpose: does the suite notice?</h2>
+  <table>
+    <tr><th>Injected bug</th><th>Caught by</th><th>Lesson</th></tr>
+    <tr><td>Remove the browser's submit guard</td><td>EC-04</td><td>The server still deduplicated, but the test checks <b>requests sent</b>, so the regression is caught anyway</td></tr>
+    <tr><td>Server ignores idempotency keys</td><td>4 unit tests + EC-06</td><td>The second layer is genuinely tested, not just present</td></tr>
+    <tr><td>Browser stops checking the name</td><td>TC-02 ×2, EC-02</td><td>Asserting "no request" catches what the server would silently cover</td></tr>
+  </table>
+  <div class="footer"><span>A test that never fails proves nothing</span><span>8</span></div>
+</section>
+
+<!-- 9 -->
+<section class="slide">
+  <div class="kicker">Honest limits &amp; next steps</div>
+  <h2>What I'd do with more time</h2>
+  <div class="grid2">
+    <div class="card"><b>Not tested</b>
+      <ul><li>Real Safari / real phones (WebKit + Pixel 7 profile used)</li><li>Full accessibility audit (axe, screen reader)</li><li>Load, visual regression</li><li>Persistence across restarts (in-memory store)</li></ul></div>
+    <div class="card"><b>Next</b>
+      <ul><li>Root-cause FLAKE-01 with Playwright traces in CI</li><li>Shared idempotency store (DB unique key / Redis) for multiple servers</li><li>axe-core checks in the browser suite</li><li>Contract tests for the API</li></ul></div>
+  </div>
+  <div class="footer"><span>Thank you · README has run steps for everything shown</span><span>9</span></div>
+</section>
+
+</div>
+<div class="nav">← → or click · <span id="pos"></span></div>
+<script>
+  const slides = [...document.querySelectorAll('.slide')];
+  let i = Math.max(0, Math.min(slides.length - 1, (parseInt(location.hash.slice(1), 10) || 1) - 1));
+  const show = (n) => {
+    i = Math.max(0, Math.min(slides.length - 1, n));
+    slides.forEach((s, k) => s.classList.toggle('active', k === i));
+    document.getElementById('pos').textContent = (i + 1) + ' / ' + slides.length;
+    history.replaceState(null, '', '#' + (i + 1));
+  };
+  document.addEventListener('keydown', (e) => {
+    if (['ArrowRight', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); show(i + 1); }
+    if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); show(i - 1); }
+    if (e.key === 'Home') show(0);
+    if (e.key === 'End') show(slides.length - 1);
+  });
+  document.addEventListener('click', (e) => { if (!e.target.closest('a')) show(e.clientX > innerWidth / 2 ? i + 1 : i - 1); });
+  addEventListener('hashchange', () => show((parseInt(location.hash.slice(1), 10) || 1) - 1));
+  show(i);
+</script>
+</body>
+</html>

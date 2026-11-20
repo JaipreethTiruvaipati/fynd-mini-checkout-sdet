@@ -1,0 +1,41 @@
+* { box-sizing: border-box; }
+body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; margin: 0; background: #f6f7f9; color: #1d2433; }
+.page { max-width: 760px; margin: 0 auto; padding: 24px 16px 48px; }
+h1 { margin: 0 0 16px; }
+h2 { margin: 0 0 12px; font-size: 1.15rem; }
+.card { background: #fff; border: 1px solid #dde1e7; border-radius: 8px; padding: 16px; margin-bottom: 16px; }
+.muted { color: #5b6475; }
+.product-list { list-style: none; margin: 0; padding: 0; }
+.product-list li { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 8px 0; border-bottom: 1px solid #eef0f3; }
+.product-list li:last-child { border-bottom: 0; }
+table { width: 100%; border-collapse: collapse; }
+th, td { text-align: left; padding: 8px 4px; border-bottom: 1px solid #eef0f3; vertical-align: top; }
+.qty { display: inline-flex; align-items: center; gap: 4px; }
+.qty input { width: 52px; padding: 4px; text-align: center; font: inherit; border: 1px solid #b8bfcc; border-radius: 4px; }
+/* Space for the message is always reserved, so showing an error never moves the
+   buttons under the customer's pointer (part of the DEF-02 fix). */
+.qty-error { color: #b42318; font-size: 0.8rem; display: block; min-height: 1.2em; margin-top: 2px; }
+.order-total { text-align: right; font-size: 1.1rem; margin: 12px 0 0; }
+label { display: block; font-weight: 600; margin-bottom: 4px; }
+#customer-name { width: 100%; padding: 8px; font-size: 1rem; border: 1px solid #b8bfcc; border-radius: 4px; }
+input[aria-invalid="true"] { border-color: #b42318 !important; outline-color: #b42318; }
+.error { color: #b42318; min-height: 1.4em; margin: 6px 0 10px; }
+button { font: inherit; padding: 6px 12px; border-radius: 4px; border: 1px solid #1d4ed8; background: #fff; color: #1d4ed8; cursor: pointer; min-height: 36px; }
+.qty button { min-width: 36px; }
+button[type="submit"], #new-order { background: #1d4ed8; color: #fff; }
+button:disabled { opacity: 0.55; cursor: not-allowed; }
+.success { border-color: #12b76a; background: #ecfdf3; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* DEF-03 fix: on phones the 5-column table overflowed and "Remove" was off-screen.
+   Each cart line becomes a stacked card instead. */
+@media (max-width: 560px) {
+  #cart-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  #cart-table, #cart-table tbody, #cart-table tr, #cart-table td { display: block; width: 100%; }
+  #cart-table tr { border: 1px solid #eef0f3; border-radius: 6px; padding: 8px; margin-bottom: 8px; }
+  #cart-table td { display: flex; justify-content: space-between; align-items: center; gap: 8px; border: 0; padding: 4px 0; }
+  #cart-table td[data-label]:not([data-label=""])::before { content: attr(data-label); font-weight: 600; color: #5b6475; }
+  #cart-table td[data-label="Quantity"] { flex-wrap: wrap; }
+  #cart-table td[data-label="Quantity"] .qty-error { flex-basis: 100%; text-align: right; }
+  #cart-table td[data-label=""] { justify-content: flex-end; }
+}

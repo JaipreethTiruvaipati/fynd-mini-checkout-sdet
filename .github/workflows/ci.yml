@@ -1,0 +1,76 @@
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  unit:
+    name: Unit tests (race detector)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      - run: go vet ./... && go vet -tags e2e ./...
+      - shell: bash
+        run: go test -race -count=1 -json ./internal/... | tee unit.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: unit-json
+          path: unit.json
+
+  e2e:
+    name: Browser tests (${{ matrix.browser }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, firefox, webkit, mobile-chrome]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      - name: Install browsers
+        run: |
+          engine=${{ matrix.browser }}; [ "$engine" = mobile-chrome ] && engine=chromium
+          go run github.com/mxschmitt/playwright-go/cmd/playwright@v0.6401.0 install --with-deps "$engine"
+      - name: Run browser tests
+        shell: bash # -eo pipefail: the go test exit code survives the pipe into tee
+        env:
+          BROWSERS: ${{ matrix.browser }}
+        run: go test -tags e2e -count=1 -json ./e2e | tee e2e-${{ matrix.browser }}.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: e2e-${{ matrix.browser }}
+          path: |
+            e2e-${{ matrix.browser }}.json
+            test-results/
+
+  report:
+    name: HTML test report
+    needs: [unit, e2e]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      - uses: actions/download-artifact@v4
+        with:
+          path: results
+      - run: go run ./cmd/testreport -o report/index.html results/unit-json/unit.json results/e2e-*/e2e-*.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-report
+          path: report/
