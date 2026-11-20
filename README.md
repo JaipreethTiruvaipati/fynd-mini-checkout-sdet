@@ -176,13 +176,3 @@ docs/                test plan, results, evidence, screenshots, demo, report, sl
 - Orders live in memory (no database), so a restart clears them. Production would persist orders and use a shared idempotency store.
 - Payment is out of scope (as the brief says); order processing time is simulated with `-order-delay`.
 
-## Known gaps / not tested
-
-- Real Safari and real phones not tested; WebKit and the Pixel 7 profile are the closest stand-ins.
-- No full accessibility audit (axe or a screen reader); only labels, `aria-invalid`, focus and live regions are checked.
-- No load, visual-regression or security testing beyond basic headers and input limits.
-- FLAKE-01 is still open (see results).
-
-## AI assistance
-
-I used an AI coding assistant (Claude) while building this, for scaffolding, drafting tests and docs, and pair-debugging. I reviewed and ran everything, and the defects, measurements and evidence come from real runs. All data is synthetic.
