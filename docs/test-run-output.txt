@@ -1,0 +1,17 @@
+
+Running 12 tests using 4 workers
+
+  ✓   2 [chromium] › tests/checkout.spec.js:52:1 › TC-03: changing quantity updates line totals and the exact order total (1.2s)
+  ✓   5 [chromium] › tests/edge-cases.spec.js:6:1 › EC-01: an empty cart blocks checkout and keeps the entered name (249ms)
+  ✓   6 [chromium] › tests/edge-cases.spec.js:18:1 › EC-02: an empty cart and blank name show both messages (228ms)
+  ✓   4 [chromium] › tests/checkout.spec.js:11:1 › TC-01: a successful checkout shows exactly one confirmation with a reference (1.8s)
+  ✓   3 [chromium] › tests/checkout.spec.js:30:3 › TC-02: a whitespace-only name blocks checkout, shows a clear message and keeps the cart (1.9s)
+  ✓   1 [chromium] › tests/checkout.spec.js:30:3 › TC-02: a blank name blocks checkout, shows a clear message and keeps the cart (1.9s)
+  ✓   7 [chromium] › tests/edge-cases.spec.js:37:3 › double submission › EC-03: a rapid double-click on Place order creates one order (422ms)
+  ✓   8 [chromium] › tests/edge-cases.spec.js:50:3 › double submission › EC-04: two submits fired in the same tick still create one order (615ms)
+  ✓   9 [chromium] › tests/edge-cases.spec.js:65:3 › double submission › EC-05: pressing Enter repeatedly in the name field creates one order (753ms)
+  ✓  10 [chromium] › tests/edge-cases.spec.js:75:1 › EC-06: invalid quantities are rejected and the last valid quantity is kept (986ms)
+  ✓  11 [chromium] › tests/edge-cases.spec.js:89:1 › EC-07: "Start a new order" returns to a clean state (1.5s)
+  ✓  12 [chromium] › tests/edge-cases.spec.js:104:1 › EC-08 (DEF-01 regression): an invalid quantity typed just before Place order blocks checkout (1.4s)
+
+  12 passed (4.9s)
