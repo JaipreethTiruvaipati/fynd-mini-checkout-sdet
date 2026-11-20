@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mini Checkout: SDET Intern · Fynd Hiring Hackathon</title>
+<style>
+  body { font: 16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; margin: 0; background: #f6f7f9; color: #111827; }
+  main { max-width: 980px; margin: 0 auto; padding: 32px 18px 60px; }
+  .kicker { color: #1d4ed8; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; font-size: 13px; }
+  h1 { margin: 6px 0 6px; font-size: 34px; letter-spacing: -.02em; }
+  p.lead { color: #5b6475; margin: 0 0 22px; font-size: 18px; }
+  video { width: 100%; border-radius: 12px; border: 1px solid #e3e6eb; background: #000; box-shadow: 0 8px 30px rgba(0,0,0,.12); }
+  .links { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; margin: 24px 0; }
+  .links a { display: block; background: #fff; border: 1px solid #e3e6eb; border-radius: 10px; padding: 14px 16px; color: #111827; text-decoration: none; }
+  .links a:hover { border-color: #1d4ed8; }
+  .links b { display: block; color: #1d4ed8; }
+  .stats { display: flex; gap: 12px; flex-wrap: wrap; }
+  .stats div { background: #fff; border: 1px solid #e3e6eb; border-radius: 10px; padding: 10px 16px; }
+  .stats b { font-size: 22px; display: block; }
+</style>
+</head>
+<body><main>
+  <div class="kicker">Fynd Hiring Hackathon · SDET Intern</div>
+  <h1>Mini Checkout &amp; Browser Test Suite</h1>
+  <p class="lead">A checkout with a Go backend, tested with Playwright for Go on Chromium, Firefox, WebKit and mobile.</p>
+  <video src="demo/mini-checkout-demo.mp4" controls playsinline preload="metadata" poster="screenshots/02-cart-totals.png"></video>
+  <div class="stats" style="margin-top:18px">
+    <div><b style="color:#067647">88 / 88</b>tests passing (0 retries)</div>
+    <div><b>4</b>browser profiles</div>
+    <div><b style="color:#b42318">3</b>real defects found &amp; fixed</div>
+  </div>
+  <div class="links">
+    <a href="presentation.html"><b>Slides →</b>9-slide walkthrough</a>
+    <a href="report/"><b>Test report →</b>cross-browser matrix, every test</a>
+    <a href="https://github.com/JaipreethTiruvaipati/fynd-mini-checkout-sdet"><b>Source &amp; README →</b>run steps, design, structure</a>
+    <a href="https://github.com/JaipreethTiruvaipati/fynd-mini-checkout-sdet/blob/main/docs/TEST_PLAN.md"><b>Test plan →</b>risks, cases, gaps</a>
+    <a href="https://github.com/JaipreethTiruvaipati/fynd-mini-checkout-sdet/blob/main/docs/TEST_RESULTS.md"><b>Results &amp; defects →</b>DEF-01..03, FLAKE-01, evidence</a>
+  </div>
+</main></body>
+</html>

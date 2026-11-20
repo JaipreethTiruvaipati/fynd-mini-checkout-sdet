@@ -10,7 +10,7 @@ A single-page checkout with a **Go backend**, tested in real browsers with **Pla
 
 ![Demo](docs/demo/mini-checkout-demo.gif)
 
-▶ **Full demo video (51 s, captioned):** [`docs/demo/mini-checkout-demo.mp4`](docs/demo/mini-checkout-demo.mp4) · **Slides:** [`docs/presentation.html`](docs/presentation.html) · **Test report:** [`docs/report/index.html`](docs/report/index.html)
+▶ **[Watch the demo video (51 s, captioned)](https://jaipreethtiruvaipati.github.io/fynd-mini-checkout-sdet/)** · **[Slides](https://jaipreethtiruvaipati.github.io/fynd-mini-checkout-sdet/presentation.html)** · **[Test report](https://jaipreethtiruvaipati.github.io/fynd-mini-checkout-sdet/report/)**
 
 ---
 
