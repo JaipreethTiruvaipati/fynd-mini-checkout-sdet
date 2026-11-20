@@ -172,7 +172,9 @@ func (x *h) openCleanCheckout() {
 func (x *h) button(name string) playwright.Locator {
 	return x.page.GetByRole(*playwright.AriaRoleButton, playwright.PageGetByRoleOptions{Name: name, Exact: playwright.Bool(true)})
 }
-func (x *h) addButton(product string) playwright.Locator { return x.button("Add " + product + " to cart") }
+func (x *h) addButton(product string) playwright.Locator {
+	return x.button("Add " + product + " to cart")
+}
 func (x *h) placeOrder() playwright.Locator {
 	return x.page.Locator("#place-order") // its label changes to "Placing order…" while submitting
 }

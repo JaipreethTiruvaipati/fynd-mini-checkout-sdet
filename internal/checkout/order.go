@@ -71,7 +71,9 @@ const maxNameLen = 80
 // ValidationError is returned when the request has customer-fixable problems.
 type ValidationError struct{ Errors []FieldError }
 
-func (e *ValidationError) Error() string { return fmt.Sprintf("invalid order: %d problem(s)", len(e.Errors)) }
+func (e *ValidationError) Error() string {
+	return fmt.Sprintf("invalid order: %d problem(s)", len(e.Errors))
+}
 
 var (
 	// ErrPriceChanged means the total the customer saw is not the real total.
